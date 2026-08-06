@@ -154,15 +154,24 @@
   // executes, regardless of scroll position or whether the pane is visible.
   loadAllImages();
 
-  // ---- Hero dim on scroll ----
+  // ---- Hero "lights dimming" on scroll ----
+  // As the page scrolls the cinema room appears to power down: the image's
+  // brightness and warm saturation fall away (so the amber LED glow fades out),
+  // and a soft dark overlay deepens the shadows. Driving the image filter is
+  // what sells the effect — a flat overlay alone just veils everything, screen
+  // included. rAF-throttled so the per-frame re-raster stays off the scroll path.
   var hero = document.querySelector('.hero');
   var heroDim = document.getElementById('hero-dim');
-  if (hero && heroDim) {
+  var heroImg = document.getElementById('hero-img');
+  if (hero && heroDim && heroImg) {
     var ticking = false;
     var dim = function () {
       ticking = false;
-      var p = Math.min(1, Math.max(0, window.scrollY / (hero.offsetHeight * 0.85)));
-      heroDim.style.opacity = (p * 0.88).toFixed(3);
+      var p = Math.min(1, Math.max(0, window.scrollY / (hero.offsetHeight * 0.9)));
+      // brightness 1 → 0.28, saturation 1 → 0.55: the room goes dark and cool.
+      heroImg.style.filter = 'brightness(' + (1 - p * 0.72).toFixed(3) +
+        ') saturate(' + (1 - p * 0.45).toFixed(3) + ')';
+      heroDim.style.opacity = (p * 0.55).toFixed(3);
     };
     window.addEventListener('scroll', function () {
       if (!ticking) { ticking = true; requestAnimationFrame(dim); }

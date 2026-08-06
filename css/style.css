@@ -140,8 +140,10 @@ h2.section-title {
   inset: 0;
   background: linear-gradient(180deg, rgba(14, 15, 17, .55) 0%, rgba(14, 15, 17, .1) 40%, rgba(14, 15, 17, .8) 100%);
 }
-/* Darkens the hero on scroll. An overlay's opacity is composited on the GPU;
-   re-applying a CSS filter to the image itself re-rasters it every frame. */
+/* Soft dark overlay that deepens shadows as the hero dims on scroll; works
+   together with the brightness/saturation filter driven on .hero-img (see
+   "lights dimming" in main.js), which is what actually reads as the room
+   powering down. */
 .hero-dim {
   position: absolute;
   inset: 0;
