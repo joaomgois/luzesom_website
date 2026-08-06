@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -29,7 +29,8 @@
   </nav>
 
   <header class="hero" id="topo">
-    <img class="hero-img" id="hero-img" src="img/hero-cinema.jpg" alt="Sala de cinema em casa em madeira com iluminação quente e ecrã panorâmico, instalada pela Luz e Som">
+    <!-- Imagem ilustrativa (gerada por IA) — não retrata um projeto real da Luz e Som. -->
+    <img class="hero-img" id="hero-img" src="img/hero-cinema.jpg" alt="Sala de cinema em casa em madeira, com iluminação quente e ecrã panorâmico">
     <div class="hero-scrim"></div>
     <div class="hero-dim" id="hero-dim"></div>
     <div class="hero-card reveal">
@@ -200,7 +201,17 @@
           </div>
         </div>
       </div>
-      <form class="card" id="contact-form" novalidate>
+      <!--
+        DESTINO DAS MENSAGENS: info@luzesom.pt
+        Entrega final por decidir consoante o alojamento (host) do site — usar o
+        mecanismo de formulários do próprio host (ex.: Wix Forms, Netlify Forms).
+        Até lá o handler em js/main.js abre o email do visitante (mailto), como
+        solução provisória. Para ligar ao host: definir method/action (ou os
+        atributos do host) neste <form> e remover o fallback mailto no main.js.
+        O campo oculto abaixo regista o destinatário pretendido.
+      -->
+      <form class="card" id="contact-form" data-destino="info@luzesom.pt" novalidate>
+        <input type="hidden" name="_destinatario" value="info@luzesom.pt">
         <div class="field-row">
           <input type="text" name="nome" placeholder="Nome" required autocomplete="name">
           <input type="tel" name="telefone" placeholder="Telefone" autocomplete="tel">
@@ -234,7 +245,7 @@
 
 </div>
 
-<script src="js/data.js?v=3"></script>
-<script src="js/main.js?v=3"></script>
+<script src="js/data.js?v=4"></script>
+<script src="js/main.js?v=4"></script>
 </body>
 </html>

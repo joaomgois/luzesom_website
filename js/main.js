@@ -279,7 +279,11 @@
       status.textContent = 'Preencha nome, email e mensagem.';
       return;
     }
-    // No backend yet — open the user's mail client with the message pre-filled.
+    // INTERIM ONLY. Final delivery will use the host's own form handling once
+    // the hosting target is known (see the comment above the <form> in
+    // index.html). Until then, open the visitor's mail client pre-filled —
+    // the destination lives in one place, the form's data-destino attribute.
+    var dest = form.getAttribute('data-destino') || 'info@luzesom.pt';
     var data = new FormData(form);
     var body = [
       'Nome: ' + data.get('nome'),
@@ -289,7 +293,7 @@
       '',
       data.get('mensagem')
     ].join('\n');
-    window.location.href = 'mailto:info@luzesom.pt'
+    window.location.href = 'mailto:' + dest
       + '?subject=' + encodeURIComponent('Pedido de contacto — site Luz e Som')
       + '&body=' + encodeURIComponent(body);
     status.textContent = 'A abrir o seu email…';
