@@ -199,6 +199,10 @@ h2.section-title {
   text-align: center;
   text-wrap: pretty;
 }
+.lede-lead {
+  color: var(--fg);
+  font-weight: 600;
+}
 
 .section-head {
   display: flex;

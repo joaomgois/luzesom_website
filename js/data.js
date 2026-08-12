@@ -6,8 +6,8 @@ window.LS_DATA = {
     { n: 'Domótica e Integração de Sistemas', d: 'Som, imagem, luz e climatização a funcionar em conjunto, num só comando.', img: 'img/sala-clara.webp' },
     { n: 'Audioconferência e Videoconferência', d: 'Salas de reunião equipadas para comunicar com clareza, à distância que for.' },
     { n: 'Videowall e LED Wall', d: 'Ecrãs de grande formato para eventos, receções e espaços corporativos.', img: 'img/videowall.png' },
-    { n: 'Segurança, CCTV e Controlo de Acessos', d: 'Videovigilância e controlo de acessos integrados na gestão do espaço.', img: 'img/cctv-hikvision.jpg' },
-    { n: 'Aluguer de Equipamento', d: 'Som, luz e audiovisual para eventos, com montagem e assistência incluídas.', img: 'img/aluguer-eventos.png' }
+    { n: 'Segurança, CCTV e Controlo de Acessos', d: 'Videovigilância, deteção de incêndio e controlo de acessos, integrados na gestão do espaço.', img: 'img/cctv-hikvision.jpg' },
+    { n: 'Aluguer de Equipamento', d: 'Som, luz e audiovisual para eventos privados e corporativos, com montagem e assistência incluídas.', img: 'img/aluguer-eventos.png' }
   ],
 
   // Fonte: Validacao_Timeline_v2.csv (timeline validada) + Timeline_Fotos/00_INDICE.md.
