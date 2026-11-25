@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css?v=8">
 </head>
 <body>
 
@@ -148,7 +148,7 @@
         </div>
       </div>
       <div class="tl-track" id="tl-track"></div>
-      <div class="tl-foot">Arraste para percorrer · marcos 2014–2024 por validar</div>
+      <div class="tl-foot">Arraste para percorrer</div>
     </div>
   </section>
 
@@ -167,8 +167,7 @@
         <div class="eyebrow" style="display: block; margin-bottom: 36px;">Clientes que falam por nós</div>
       </div>
       <div class="marquee reveal" id="marquee"></div>
-      <div class="projetos-grid" id="projetos-grid"></div>
-      <div class="note" style="margin-top: 24px;">Projetos candidatos — textos e autorizações a validar.</div>
+      <div class="projetos-grid" id="projetos-grid" hidden></div>
     </div>
   </section>
 
@@ -180,43 +179,39 @@
     <div class="contactos-grid">
       <div class="card">
         <div class="morada-list">
-          <div class="morada is-primary">
+          <div class="morada is-primary" role="button" tabindex="0" data-map="Calçada João do Carmo 25, 4150-553 Porto">
             <div class="label">Sede e Showroom · Porto</div>
             <div class="addr">Calçada João do Carmo 25 (junto à Rua do Ouro)<br>4150-553 Porto</div>
             <div class="tel"><a href="tel:+351229385560">+351 229 385 560</a> · <a href="tel:+351220927250">+351 220 927 250</a></div>
           </div>
-          <div class="morada">
+          <div class="morada" role="button" tabindex="0" data-map="Av. Afonso Henriques 1402, 4450-013 Matosinhos">
             <div class="label">Armazém e Técnica · Matosinhos</div>
             <div class="addr">Av. Afonso Henriques, 1402<br>4450-013 Matosinhos</div>
             <div class="tel"><a href="tel:+351220931601">+351 220 931 601</a></div>
           </div>
-          <div class="morada">
+          <div class="morada" role="button" tabindex="0" data-map="Rua Cristóvão da Gama 9, 1675-193 Pontinha">
             <div class="label">Escritório e Assistência Técnica · Lisboa</div>
             <div class="addr">Rua Cristóvão da Gama 9, Loja A<br>1675-193 Pontinha</div>
             <div class="tel"><a href="tel:+351213959668">+351 213 959 668</a> · Fax +351 213 959 669</div>
           </div>
           <div class="email-line"><a href="mailto:info@luzesom.pt">info@luzesom.pt</a></div>
-          <div class="note">Dados de 2023 — confirmar antes de publicar.</div>
         </div>
         <div class="map">
-          <div class="dots"></div>
-          <div class="pin-group">
-            <div class="pin"></div>
-            <div class="cap">Mapa — embed na publicação</div>
-          </div>
+          <iframe id="map-frame" title="Mapa — Luz e Som, Porto" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Cal%C3%A7ada%20Jo%C3%A3o%20do%20Carmo%2025%2C%204150-553%20Porto&z=16&output=embed"></iframe>
         </div>
+        <a class="map-link" id="map-link" target="_blank" rel="noopener"
+          href="https://www.google.com/maps/search/?api=1&query=Cal%C3%A7ada%20Jo%C3%A3o%20do%20Carmo%2025%2C%204150-553%20Porto">Abrir no Google Maps →</a>
       </div>
       <!--
-        DESTINO DAS MENSAGENS: info@luzesom.pt
-        Entrega final por decidir consoante o alojamento (host) do site — usar o
-        mecanismo de formulários do próprio host (ex.: Wix Forms, Netlify Forms).
-        Até lá o handler em js/main.js abre o email do visitante (mailto), como
-        solução provisória. Para ligar ao host: definir method/action (ou os
-        atributos do host) neste <form> e remover o fallback mailto no main.js.
-        O campo oculto abaixo regista o destinatário pretendido.
+        FORMULÁRIO: as mensagens são enviadas por FormSubmit (formsubmit.co) para
+        o email em data-destino (info@luzesom.pt). Sem conta nem custo.
+        Na PRIMEIRA mensagem, a FormSubmit envia um email de ativação para
+        info@luzesom.pt — é preciso clicar em "Activate Form" uma vez.
+        O campo _honey é uma armadilha anti-spam (fica escondido).
       -->
       <form class="card" id="contact-form" data-destino="info@luzesom.pt" novalidate>
-        <input type="hidden" name="_destinatario" value="info@luzesom.pt">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="field-row">
           <input type="text" name="nome" placeholder="Nome" required autocomplete="name">
           <input type="tel" name="telefone" placeholder="Telefone" autocomplete="tel">
@@ -250,7 +245,7 @@
 
 </div>
 
-<script src="js/data.js?v=7"></script>
-<script src="js/main.js?v=7"></script>
+<script src="js/data.js?v=8"></script>
+<script src="js/main.js?v=8"></script>
 </body>
 </html>

@@ -62,14 +62,10 @@
   // ---- Timeline ----
   var tlTrack = document.getElementById('tl-track');
   D.marcos.forEach(function (m) {
-    // Editor notes from the validation CSV ride along as an HTML comment:
-    // nothing is lost, but a visitor never sees them.
-    if (m.nota) tlTrack.appendChild(document.createComment(' NOTA INTERNA: ' + m.nota + ' '));
 
     var c = el('div', 'marco');
     c.appendChild(el('div', 'ano', m.ano));
 
-    if (m.porValidar) c.appendChild(el('div', 'marco-flag', 'Conteúdo em validação'));
 
     // The tagline is the highlighted line; entries still being written have
     // none, so the short title carries the slot instead.
@@ -84,8 +80,6 @@
       var fig = el('div', 'foto' + (m.foto.fit === 'contain' ? ' is-doc' : ''));
       fig.appendChild(newImg(m.foto.src, m.foto.alt));
       c.appendChild(fig);
-    } else {
-      c.appendChild(el('div', 'foto is-empty', m.semFoto || 'Sem fotografia de arquivo'));
     }
 
     if (m.galeria && m.galeria.length) {
@@ -270,32 +264,66 @@
     io2.observe(svg);
   }
 
-  // ---- Contact form ----
+  // ---- Map: click an address to show it on the map ----
+  var mapFrame = document.getElementById('map-frame');
+  var mapLink = document.getElementById('map-link');
+  var moradas = document.querySelectorAll('.morada[data-map]');
+  function showOnMap(el) {
+    var q = encodeURIComponent(el.getAttribute('data-map'));
+    mapFrame.src = 'https://maps.google.com/maps?q=' + q + '&z=16&output=embed';
+    mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + q;
+    for (var i = 0; i < moradas.length; i++) moradas[i].classList.remove('is-primary');
+    el.classList.add('is-primary');
+  }
+  for (var m = 0; m < moradas.length; m++) {
+    moradas[m].addEventListener('click', function (e) {
+      if (e.target.closest('a')) return; // let phone links work
+      showOnMap(this);
+    });
+    moradas[m].addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showOnMap(this); }
+    });
+  }
+
+  // ---- Contact form (sent by FormSubmit to data-destino) ----
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
+  var button = form.querySelector('button[type="submit"]');
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.checkValidity()) {
       status.textContent = 'Preencha nome, email e mensagem.';
       return;
     }
-    // INTERIM ONLY. Final delivery will use the host's own form handling once
-    // the hosting target is known (see the comment above the <form> in
-    // index.html). Until then, open the visitor's mail client pre-filled —
-    // the destination lives in one place, the form's data-destino attribute.
     var dest = form.getAttribute('data-destino') || 'info@luzesom.pt';
     var data = new FormData(form);
-    var body = [
-      'Nome: ' + data.get('nome'),
-      'Telefone: ' + (data.get('telefone') || '—'),
-      'Email: ' + data.get('email'),
-      'Área: ' + (data.get('area') || '—'),
-      '',
-      data.get('mensagem')
-    ].join('\n');
-    window.location.href = 'mailto:' + dest
-      + '?subject=' + encodeURIComponent('Pedido de contacto — site Luz e Som')
-      + '&body=' + encodeURIComponent(body);
-    status.textContent = 'A abrir o seu email…';
+    if (data.get('_honey')) return; // spam bot
+    var payload = {
+      Nome: data.get('nome'),
+      Telefone: data.get('telefone') || '—',
+      Email: data.get('email'),
+      'Área de interesse': data.get('area') || '—',
+      Mensagem: data.get('mensagem'),
+      _replyto: data.get('email'),
+      _subject: 'Pedido de contacto — site Luz e Som',
+      _template: 'table'
+    };
+    button.disabled = true;
+    status.textContent = 'A enviar…';
+    fetch('https://formsubmit.co/ajax/' + dest, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || String(res.j.success) === 'false') throw new Error(res.j.message || 'erro');
+        form.reset();
+        status.textContent = 'Obrigado! A sua mensagem foi enviada. Entraremos em contacto em breve.';
+      })
+      .catch(function () {
+        status.innerHTML = 'Não foi possível enviar. Escreva-nos para <a href="mailto:' + dest + '">' + dest + '</a>.';
+      })
+      .then(function () { button.disabled = false; });
   });
 })();
