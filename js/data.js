@@ -4,14 +4,12 @@ window.LS_DATA = {
     { n: 'Audiovisual e Cinema', d: 'Salas de cinema em casa e soluções audiovisuais para espaços profissionais.', img: 'img/cinema-maven.webp' },
     { n: 'Iluminação Profissional', d: 'Fornecimento e instalação de iluminação para espetáculos e teatro.', img: 'img/iluminacao-palco.jpg' },
     { n: 'Domótica e Integração de Sistemas', d: 'Som, imagem, luz e climatização a funcionar em conjunto, num só comando.', img: 'img/sala-clara.webp' },
-    { n: 'Audioconferência e Videoconferência', d: 'Salas de reunião equipadas para comunicar com clareza, à distância que for.' },
+    { n: 'Audioconferência e Videoconferência', d: 'Salas de reunião equipadas para comunicar com clareza, à distância que for.', img: 'img/videoconferencia-flexoffices.jpg' },
     { n: 'Videowall e LED Wall', d: 'Ecrãs de grande formato para eventos, receções e espaços corporativos.', img: 'img/videowall.png' },
     { n: 'Segurança, CCTV e Controlo de Acessos', d: 'Videovigilância, deteção de incêndio e controlo de acessos, integrados na gestão do espaço.', img: 'img/cctv-hikvision.jpg' },
     { n: 'Aluguer de Equipamento', d: 'Som, luz e audiovisual para eventos privados e corporativos, com montagem e assistência incluídas.', img: 'img/aluguer-eventos.png' }
   ],
 
-  // `nota` = observações internas do CSV; não são renderizadas como texto visível,
-  // saem como comentário HTML junto da entrada para nada se perder.
   marcos: [
     {
       ano: '1985',
